@@ -1,0 +1,66 @@
+
+<div class="title-and-actions">
+    <button (click)="navigateBack()" mat-icon-button>
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>{{ rentedCarDetails ? "Update rental car's details" : 'Create new rental car' }}</h1>
+    
+</div>
+
+<form class="mat-elevation-z8" [formGroup]="form">
+    <mat-stepper orientation="vertical" #stepper>
+        <mat-step [stepControl]="carDetails!" errorMessage="Invalid data">
+            <ng-template matStepLabel>Car's details</ng-template>
+            <br>
+            <rc-details></rc-details>
+            <br>
+            <button mat-button matStepperNext>Next</button>
+        </mat-step>
+        <mat-step *ngIf="!rentedCarDetails" [stepControl]="currentAddress!" errorMessage="Invalid data">
+            <ng-template matStepLabel>Car's current address</ng-template>
+            <button (click)="useDefaultAddress()" class="fill-default-button" mat-button>
+                Use default address
+            </button>
+            <rc-address controlName="currentAddress"></rc-address>
+            <button mat-button matStepperNext>Next</button>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Car's rental status</ng-template>
+            <mat-slide-toggle [checked]="rented" (change)="onRentedStatusChange($event)">
+                rented
+            </mat-slide-toggle>
+            <button mat-button matStepperNext>Next</button>
+        </mat-step>
+        <mat-step *ngIf="rented" [stepControl]="form.controls.clientEmail" errorMessage="Invalid data">
+            <ng-template matStepLabel>Client's email</ng-template>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="clientEmail">
+                <mat-error>{{ getErrorMessage('clientEmail') }}</mat-error>
+            </mat-form-field>   
+            <br> 
+            <button mat-button matStepperNext>Next</button>    
+        </mat-step>
+        <mat-step *ngIf="rented" [stepControl]="form.controls.clientAddress" errorMessage="Invalid data">
+            <ng-template matStepLabel>Client's address</ng-template>
+            <br>
+            <rc-address controlName="clientAddress"></rc-address>  
+            <button mat-button matStepperNext>Next</button>        
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Submit form</ng-template>
+            <br>
+            <h2 *ngIf="!form.valid">Please fill all the required fields</h2>
+            <button 
+                (click)="onSubmit()"
+                *ngIf="form.valid"
+                class="submit-button"
+                mat-raised-button
+                color="primary"
+            >
+                Submit
+            </button>     
+        </mat-step>
+    </mat-stepper>
+</form>

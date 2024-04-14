@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+      target: development
+    volumes:
+      - ./backend/src:/usr/src/app/src
+    container_name: backend
+    ports:
+      - '4000:4000'
+    environment:
+      - DB_HOST=mongo
+      - DB_USER=admin
+      - DB_PASSWORD=pwd
+      - DB_NAME=car_rental
+      - DB_PORT=27017
+      - PORT=4000
+    depends_on:
+      - mongo
+  frontend:
+    profiles:
+      - full-stack
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+      target: development
+    volumes:
+      - ./frontend/src:/usr/src/app/src
+    container_name: frontend
+    ports:
+      - '4200:4200'
+    links: 
+      - backend
+  mongo:
+    image: mongo:7.0
+    restart: always
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: pwd
+      MONGO_INITDB_DATABASE: car_rental

@@ -1,0 +1,35 @@
+<form [formGroup]="form">
+    <mat-form-field appearance="fill">
+        <mat-label>Brand</mat-label>
+        <input matInput [matAutocomplete]="brands" formControlName="brand">
+        <mat-autocomplete #brands="matAutocomplete" autoActiveFirstOption (optionSelected)="onBrandSelected($event.option.value)">
+            <mat-option *ngFor="let brand of (carBrands$ | async)" [value]="brand">
+                {{ brand }}
+            </mat-option>
+        </mat-autocomplete>
+        <mat-error>{{ getErrorMessage('brand') }}</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field *ngIf="form.controls['brand'].value" appearance="fill">
+        <mat-label>Model</mat-label>
+        <input matInput [matAutocomplete]="models" formControlName="model">
+        <mat-autocomplete #models="matAutocomplete" autoActiveFirstOption>
+            <mat-option *ngFor="let model of (brandModels$ | async)" [value]="model">
+                {{ model }}
+            </mat-option>
+        </mat-autocomplete>
+        <mat-error>{{ getErrorMessage('model') }}</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+        <mat-label>Registration number</mat-label>
+        <input matInput formControlName="registrationNumber">
+        <mat-error>{{ getErrorMessage('registrationNumber') }}</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+        <mat-label>Vin</mat-label>
+        <input matInput formControlName="vin">
+        <mat-error>{{ getErrorMessage('vin') }}</mat-error>
+    </mat-form-field>
+</form>

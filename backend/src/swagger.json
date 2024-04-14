@@ -1,0 +1,369 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"IAddress": {
+				"properties": {
+					"_id": {
+						"type": "boolean"
+					},
+					"city": {
+						"type": "string"
+					},
+					"street": {
+						"type": "string"
+					},
+					"houseNumber": {
+						"type": "string"
+					},
+					"apartmentNumber": {
+						"type": "string",
+						"nullable": true
+					},
+					"zipCode": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"city",
+					"street",
+					"houseNumber",
+					"apartmentNumber",
+					"zipCode"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IRentedCar": {
+				"properties": {
+					"model": {
+						"type": "string"
+					},
+					"brand": {
+						"type": "string"
+					},
+					"registrationNumber": {
+						"type": "string"
+					},
+					"vin": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string",
+						"nullable": true
+					},
+					"clientAddress": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/IAddress"
+							}
+						],
+						"nullable": true
+					},
+					"currentAddress": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/IAddress"
+							}
+						],
+						"nullable": true
+					},
+					"rented": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"model",
+					"brand",
+					"registrationNumber",
+					"vin",
+					"rented"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "car-rental-backend",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "Adrian Kuraszkiewicz"
+		}
+	},
+	"paths": {
+		"/rented-cars": {
+			"get": {
+				"operationId": "GetAllRentedCars",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/IRentedCar"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateRentedCar",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IRentedCar"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IRentedCar"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/rented-cars/{id}": {
+			"get": {
+				"operationId": "GetRentedCar",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/IRentedCar"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"patch": {
+				"operationId": "UpdateRentedCar",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/IRentedCar"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IRentedCar"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "RemoveRentedCar",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/IRentedCar"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/rented-cars/verify/{field}": {
+			"get": {
+				"operationId": "VerifyBrand",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "boolean"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "field",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "brand",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "model",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "value",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/car-brands": {
+			"get": {
+				"operationId": "GetAllBrands",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"type": "string"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/car-brands/{brand}": {
+			"get": {
+				"operationId": "GetAllModels",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"type": "string"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "brand",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}

@@ -1,0 +1,31 @@
+<mat-toolbar color="primary">
+    <div>
+        <button mat-icon-button (click)="snav.toggle()" mat-icon-button>
+            <mat-icon>menu</mat-icon>
+        </button>
+        <h4 class="app-name"> Car rental </h4>
+    </div>
+    <button class="user-icon" mat-icon-button>
+        <mat-icon>person</mat-icon>
+    </button>
+</mat-toolbar>
+  
+<mat-sidenav-container>
+    <mat-sidenav #snav mode="side" fixedTopGap="56">
+        <mat-nav-list>
+        <a (click)="navigateToList()" mat-list-item>Car list</a>
+        <a (click)="navigateToForm()" mat-list-item>New car form</a>
+        </mat-nav-list>
+        
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div [class.hidden]="isModalOpen" class="content-container">
+            <router-outlet></router-outlet>
+        </div>
+        <div *ngIf="isModalOpen" class="modal-content-container">
+            <router-outlet name="modal"></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

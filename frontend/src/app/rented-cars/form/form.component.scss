@@ -1,0 +1,44 @@
+:host {
+    display: grid;
+    justify-content: center;
+    padding: 50px;
+
+    h1 {
+        margin-bottom: 0px
+    }
+}
+
+form {
+    display: grid;
+    max-width: 400px;
+    margin: 15px 0;
+    padding: 30px;
+    background-color: white;;
+}
+
+.fill-default-button {
+    margin: 15px 0px;
+}
+
+mat-slide-toggle {
+    margin: 15px 15px 15px 0px;
+}
+
+mat-form-field {
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.submit-button {
+    margin-top: 15px;
+}
+
+.submit-button-container {
+    width: fit-content;
+}
+
+.title-and-actions {
+    display: flex;
+    column-gap: 15px;
+    align-items: center;
+}

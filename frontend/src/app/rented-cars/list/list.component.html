@@ -1,0 +1,93 @@
+<div class="title-and-actions">
+  <h1>Rented cars list</h1>
+  <div>
+    <button (click)="fetchRentedCarsData()" mat-raised-button color="primary">Refresh data</button>
+    <button (click)="navigateToForm()" mat-raised-button color="primary">Add new car</button>
+  </div>
+</div>
+
+<section class="table-container mat-elevation-z8" tabindex="0">
+
+<div class="no-data-error" *ngIf="(rentedCars$ | async)!.length === 0">
+  <mat-icon>error</mat-icon>
+  <h1>There was an error while fetching data, please try again.</h1>
+</div>
+<table *ngIf="(rentedCars$ | async)!.length > 0" mat-table [dataSource]="rentedCars$">
+
+  <ng-container matColumnDef="model">
+    <th mat-header-cell *matHeaderCellDef> Model </th>
+    <td mat-cell *matCellDef="let element"> {{element.model}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="brand">
+    <th mat-header-cell *matHeaderCellDef> Brand </th>
+    <td mat-cell *matCellDef="let element"> {{element.brand}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="registrationNumber">
+    <th mat-header-cell *matHeaderCellDef> Registration </th>
+    <td mat-cell *matCellDef="let element"> {{element.registrationNumber }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="vin">
+    <th mat-header-cell *matHeaderCellDef> Vin </th>
+    <td mat-cell *matCellDef="let element"> {{element.vin}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="currentAddress">
+    <th mat-header-cell *matHeaderCellDef> Current address </th>
+    <td mat-cell *matCellDef="let element">
+      <rc-address-cell [address]="element.currentAddress"></rc-address-cell>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="rented">
+      <th class="icon-header" mat-header-cell *matHeaderCellDef> Rented </th>
+      <td class="icon-cell" mat-cell *matCellDef="let element"> 
+        <div>
+          <mat-icon *ngIf="element.rented">done</mat-icon>
+        </div>
+       </td>
+  </ng-container>
+
+  <ng-container matColumnDef="clientDetails">
+    <th mat-header-cell *matHeaderCellDef> Client details </th>
+    <td [class.client-details-cell]="element.clientAddress" mat-cell *matCellDef="let element"> 
+      <ng-container *ngIf="element.clientAddress">
+        <span>{{element.email}}</span>
+        <rc-address-cell [address]="element.clientAddress"></rc-address-cell>
+      </ng-container>
+      <div class="empty-client-details-box" *ngIf="!element.clientAddress"></div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu"
+        (menuOpened)="menuOpen = true" (menuClosed)="menuOpen = false"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="navigateToForm(element._id)" mat-menu-item>
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+        <button (click)="openRentedCarRemovalDialog(element)" mat-menu-item>
+          <mat-icon>delete</mat-icon>
+          <span>Remove</span>
+        </button>
+      </mat-menu>
+    </td>
+</ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr  mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+</section>
+

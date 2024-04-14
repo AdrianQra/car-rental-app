@@ -1,0 +1,79 @@
+:host {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: block;
+}
+
+.title-and-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+    div {
+        display: flex;
+        column-gap: 15px;
+    }
+}
+
+.no-data-error {
+    display: grid;
+    text-align: center;
+    padding: 30px 0px;
+
+    mat-icon {
+      margin: 30px auto;
+      transform: scale(2);
+    }
+
+}
+
+.table-container {
+    height: 100%;
+    width: 100%;;
+    max-width: 100%;
+    overflow: auto;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .icon-header {
+    text-align: center;
+  }
+  
+  .icon-cell div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  th {
+    white-space: nowrap;
+  }
+
+  tr {
+    min-height: 100px;
+  }
+  
+
+  .client-details-cell {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: grid;
+
+    span {
+      white-space: nowrap;
+      font-size: .95em;
+      color: gray;
+      font-weight: 500;
+    }
+
+    rc-address-cell {
+      margin-top: 5px;
+    }
+  }
+
+  .empty-client-details-box {
+    height: 82px;
+  }

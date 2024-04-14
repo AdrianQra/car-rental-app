@@ -1,0 +1,32 @@
+<form [formGroup]="form" >
+    <mat-form-field appearance="fill">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city">
+        <mat-error>{{ getErrorMessage('city') }}</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+        <mat-label>Street</mat-label>
+        <input matInput formControlName="street">
+        <mat-error>{{ getErrorMessage('street') }}</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+        <mat-label>House number</mat-label>
+        <input matInput formControlName="houseNumber">
+        <mat-error>{{ getErrorMessage('houseNumber') }}</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+        <mat-label>Apartment number</mat-label>
+        <input (blur)="onApartmentNumberValueChange()" matInput formControlName="apartmentNumber">
+        <mat-error>{{ getErrorMessage('apartmentNumber') }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Zip code</mat-label>
+        <input matInput formControlName="zipCode">
+        <mat-error>{{ getErrorMessage('zipCode') }}</mat-error>
+    </mat-form-field>
+</form>
+

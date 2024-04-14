@@ -1,0 +1,38 @@
+
+
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+
+    div {
+        display: flex;
+        column-gap: 15px;
+        align-items: center;
+    }
+}
+
+mat-sidenav {
+    min-width: 200px;
+}
+
+mat-sidenav-container {
+    min-height: calc(100vh - 70px);
+}
+
+mat-sidenav-content {
+    padding: 50px;
+    min-height: calc(100vh - 170px)
+}
+
+ 
+.modal-content-container {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+    background: #fafafa;
+}    

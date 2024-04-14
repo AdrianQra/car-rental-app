@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Remove rented car</h1>
+<div mat-dialog-content>
+  <p>Are you sure you want to remove the rented car with the VIN number: <span>{{data.vin}}</span>?</p>
+  <mat-form-field>
+    <mat-label>Fill the input with the VIN number</mat-label>
+    <input [(ngModel)]="vin" matInput>
+  </mat-form-field>
+</div>
+<div class="actions" mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button 
+    [disabled]="vin !== data.vin" 
+    color="primary" mat-raised-button 
+    [mat-dialog-close]="true" 
+    cdkFocusInitial>Remove
+  </button>
+</div>

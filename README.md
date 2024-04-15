@@ -1,10 +1,10 @@
 
-- if you want to run both `frontend` and `backend` apps in containers than run `docker-compose --profile full-stack up -d`
+- if you want to run both `frontend` and `backend` apps in containers then run `docker-compose --profile full-stack up -d`
 
 ---
 
-- if you want to run just the `backend` app in the container than run `docker-compose up -d`
-- to serve `frontend` app, change directory to `./frontend`, run `npm i`, and than run `npm run start`
+- if you want to run just the `backend` app in the container then run `docker-compose up -d`
+- to serve `frontend` app, change directory to `./frontend`, run `npm i`, and then run `npm run start`
 
 ---
 
